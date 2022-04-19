@@ -19,7 +19,19 @@ During modelling phase, several models were tested, including Logistic Regressio
 
 Below is an summary of tested models.
 
-![models](models.png)
+|Model|---|HyperParameters|Sensitivity|Accuracy|Specificity|Precision|F1 Score|Train Score|Test Score|AUC|Remarks|
+|---|---|---|---|---|---|---|---|---|---|---|---|
+|Base Model|Logistic Regression|---|0.0|0.947|1.0|NAN|0.0|0.947|0.947|0.79|
+|Model Selection|---|---|---|---|---|---|---|---|---|---|---|
+|Model 1|Logistic Regression,SMOTE|SMOTE_random_state=100, Logreg_random_state=100, Logreg_solver='liblinear', Logreg__C=1, Logreg_penalty=11, PCA__n_components=23, SMOTE__k_neighbors=13, SMOTE__sampling_strategy: auto|0.655|0.758|0.768|0.134|0.225|0.760|0.758|0.78|---|
+|Model 2|Random Forest,SMOTE|SMOTE_random_state=100, rf__max_depth=None, rf__n_estimators=200, sampling__k_neighbors=13,sampling__sampling_strategy=minority|0.158|0.929|0.972|0.241|0.190|0.929|0.929|0.78|---|
+|Model 3|SVM, SMOTE|SMOTE_random_state=100, sampling__k_neighbors=13,sampling__sampling_strategy=auto|0.503|0.850|0.870|0.177|0.261|0.847|0.850|0.78|---|
+|Model 4|Xgboost, SMOTE|SMOTE_random_state=100, sampling__k_neighbors=13,sampling__sampling_strategy=auto,xgb__learning_rate=0.5, xgb__max_depth=None, xgb__n_estimators=50|0.176|0.936|0.978|0.311|0.224|0.933|0.936|0.84|Best Model| 
+|Hyperparameter Tuning|---|---|---|---|---|---|---|---|---|---|---|
+|Tuning Model 1|Xgboost|xgb__gamma=1, xgb__learning_rate=0.1, xgb__max_depth=5, xgb__min_child_weight=25, xgb__n_estimators=60, xgb__scale_pos_weight=19, xgb__subsample=1|0.745| 0.749|0.749|0.142|0.239|0.730|0.749|0.83|---|
+|Tuning Model 2|Xgboost|xgb__gamma=1, xgb__learning_rate=0.1, xgb__max_depth=5, xgb__min_child_weight=25, xgb__n_estimators=60, xgb__scale_pos_weight=63, xgb__subsample=1|0.878| 0.601|0.585|0.105|0.189|0.591|0.601|0.83|Used for Production Model|
+|Production Model|---|---|---|---|---|---|---|---|---|---|---|
+|Production Model|Xgboost|xgb__gamma=1, xgb__learning_rate=0.1, xgb__max_depth=5, xgb__min_child_weight=25, xgb__n_estimators=60, xgb__scale_pos_weight=63, xgb__subsample=1|0.998|0.574|0.551|0.110|0.198|0.427|---|0.89|---|
 
 
 In our exploration, we found out that using scale_pos_weight, another means of dealing with imbalanced class problems, can be used to further overweight the minority class. Paired with GridSearch, we were able to optimise the sensivity to 0.998 for our production model, with a scale_pos_weight of 63.
@@ -35,7 +47,7 @@ Below is a summary of our production model confusion matrix and ROC AUC curve.
 ## Cost benefit analysis
 We sought to answer if it was cost effective to spray, through the use of a cost benefit analysis. 
 
-For benefits modelling, we took reference to Barber et al (2010) [*source*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3322011/#R10) and Staples et al [*source*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3945683/#R15) to estimate medical and economical cost of West Nile fever (WNF), West Nile neuroinvasive disease (WNND) and death. Chicago 2002 West Nile epidemic was used to approximate the worst case scenario, where 22 death and 225 cases of WNV were recorded.
+For benefits modelling, we took reference to Barber et al (2010) [*source*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3322011/#R10) and Staples et al (2014) [*source*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3945683/#R15) to estimate medical and economical cost of West Nile fever (WNF), West Nile neuroinvasive disease (WNND) and death. Chicago 2002 West Nile epidemic was used to approximate the worst case scenario, where 22 death and 225 cases of WNV were recorded.
 
 For cost modelling, we took the total estimated area of Chicago, multiplied by the cost of spray per acre of Zenivex, the adulticide of choice of Chicago. This is then multiplied by the number of sprays that are announced in the past. The resultant cost is an overestimation of spraying efforts, as based on 2011 and 2013 spray data, we did not see the entire city being indiscriminately sprayed. However, for cost benefit analysis purpose, such conservative estimation would allow us to factor in worst case scenarios where the entire city do indeed require spraying.
 
