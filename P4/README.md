@@ -9,7 +9,7 @@ Around 20% of people who become infected with WNV develop symptoms ranging from 
 As this is a team project, our project plan documentation can be found here. [*link*](https://docs.google.com/spreadsheets/d/1-ZFMbKlwWW09KibHc6Yx5GV0KR207BQ6kk5W6ksB2k4/edit#gid=1732373189)
 
 ## Executive Summary
-A data science approach was used to guide the process. The problem statement was defined as building a predictive model which has high Receiver Operating Characteristics area under curve (ROC AUC), and high sensivity in predictions of occurence of West Nile Virus based on features that are fed to the model.
+A data science approach was used to guide the process. The problem statement was defined as building a predictive model which has high Receiver Operating Characteristics area under curve (ROC AUC), and high sensitivity in predictions of occurence of West Nile Virus based on features that are fed to the model.
 
 Data was extracted from Kaggle. Data was imported as a dataframe and cleaned before merging. An exploratory data analysis was to evaluate and understand key trends, and weather, train and spray dataframes were explored in how it will be visualized. 
 
@@ -34,7 +34,7 @@ Below is an summary of tested models.
 |Production Model|Xgboost|xgb__gamma=1, xgb__learning_rate=0.1, xgb__max_depth=5, xgb__min_child_weight=25, xgb__n_estimators=60, xgb__scale_pos_weight=63, xgb__subsample=1|0.998|0.574|0.551|0.110|0.198|0.427|---|0.89|---|
 
 
-In our exploration, we found out that using scale_pos_weight, another means of dealing with imbalanced class problems, can be used to further overweight the minority class. Paired with GridSearch, we were able to optimise the sensivity to 0.998 for our production model, with a scale_pos_weight of 63.
+In our exploration, we found out that using scale_pos_weight, another means of dealing with imbalanced class problems, can be used to further overweight the minority class. Paired with GridSearch, we were able to optimise the sensitivity to 0.998 for our production model, with a scale_pos_weight of 63.
 
 Sensitivity is important as we want to lower false negatives. False negatives lead to unpredicted WNV cases, where preemptive vector control efforts cannot be implemented. This can have consequences such as severe illness or even death. 
 
