@@ -19,7 +19,7 @@ During modelling phase, several models were tested, including Logistic Regressio
 
 Below is an summary of tested models.
 
-![models](models.PNG)
+![models](models.png)
 
 
 In our exploration, we found out that using scale_pos_weight, another means of dealing with imbalanced class problems, can be used to further overweight the minority class. Paired with GridSearch, we were able to optimise the sensivity to 0.998 for our production model, with a scale_pos_weight of 63.
@@ -28,8 +28,8 @@ Sensitivity is important as we want to lower false negatives. False negatives le
 
 Below is a summary of our production model confusion matrix and ROC AUC curve.
 
-![ROC_curve](ROC_curve.PNG)
-![confusion](confusion.PNG)
+![ROC_curve](ROC_curve.png)
+![confusion](confusion.png)
 
 
 ## Cost benefit analysis
